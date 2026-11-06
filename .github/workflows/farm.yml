@@ -1,4 +1,4 @@
-name: Cube Farm 24/7
+name: Cube Farm Apex 24/7
 
 on:
   workflow_dispatch:
@@ -6,25 +6,19 @@ on:
     - cron: '0 */5 * * *'
 
 concurrency:
-  group: cube-farm-group
+  group: cube-farm-apex-group
   cancel-in-progress: true
 
 jobs:
   farm:
     runs-on: ubuntu-latest
-    timeout-minutes: 310
+    timeout-minutes: 295
 
     steps:
-      - name: Скачивание кода
-        uses: actions/checkout@v4
-
-      - name: Установка Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
-      - name: Установка requests
-        run: pip install requests
-
-      - name: Запуск фермы
-        run: python3 telegramhash_cube_farm.py 0
+      - run: pip install requests
+      - name: Run Apex cube farm
+        run: python3 telegramhash_cube_apex_farm.py 0
